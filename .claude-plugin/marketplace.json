@@ -1,0 +1,15 @@
+{
+    "name": "abovebeyond",
+    "owner": {
+        "name": "Above Beyond",
+        "url": "https://abovebeyond.ai"
+    },
+    "plugins": [
+        {
+            "name": "trusted",
+            "source": "./plugins/trusted",
+            "description": "Is your agent trusted? Prove it. Audits the agentic system in your repo against the PAC framework: six Agent Profiler axes, 19 governance questions, file:line evidence for every score."
+        }
+    ],
+    "description": "Above Beyond's Claude Code plugins. First up: /trusted, the PAC framework audit for agentic systems."
+}
