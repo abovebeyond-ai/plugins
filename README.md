@@ -21,10 +21,13 @@ autonomy earned or configured, blast radius, reliability with an error margin.
 ## /hallucination-scan
 
 **What happens when your model makes something up?**
-Finds every path where model output reaches a human or a decision, and scores what
-stands in between - nothing, review, structure, or a verification gate (the
-[ProveML](https://github.com/ShaneDeconinck/proveml) bar: claims carry their facts,
-judgments meet declared thresholds, unverified text does not ship).
+Two modes on the [ProveML](https://github.com/ShaneDeconinck/proveml) method.
+Hand it a document and it verifies every claim against your data: each fact traced
+to a source, each number sourced (an unsourced number is a finding even when it
+happens to be right), each judgment checked against a declared threshold. Hand it
+nothing and it audits the repo: every path where model output reaches a human or a
+decision, scored by the gate in between - nothing, review, structure, or
+verification.
 
 ```
 /plugin install hallucination-scan@abovebeyond

@@ -1,8 +1,8 @@
 {
     "name": "hallucination-scan",
     "displayName": "hallucination-scan",
-    "version": "0.1.0",
-    "description": "Scans your repo for every path where raw model output reaches a human or a decision, and scores what stands in between - nothing, review, structure, or a verification gate (the ProveML bar). File:line evidence, one verdict line.",
+    "version": "0.2.0",
+    "description": "Two modes on the ProveML method: hand it a document and it verifies every claim against your data (facts, numbers, thresholds); hand it nothing and it audits the repo for paths where unverified model output ships. File:line evidence, one verdict line.",
     "author": {
         "name": "Above Beyond",
         "url": "https://abovebeyond.ai"

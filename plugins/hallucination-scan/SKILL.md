@@ -1,7 +1,7 @@
 ---
 name: hallucination-scan
-argument-hint: "[path]"
-description: Scan this repo for every path where raw model output reaches a human or a decision, and score what stands in between - nothing, human review, structure, or a verification gate. Scored on the ProveML method - claims carry their facts, judgments meet declared thresholds, and unverified text does not ship.
+argument-hint: "[file-or-text to verify, or empty to audit the repo]"
+description: Two modes on the ProveML method. Given a document or text, verify it - trace every claim to a fact, check every number against the data, judge every verdict against a declared threshold. Given nothing, audit the repo - find every path where raw model output reaches a human or a decision and score the gate in between.
 ---
 
 # /hallucination-scan
@@ -21,6 +21,32 @@ that fails the gate falls back to deterministic templates instead of shipping.
 **Prove, don't claim.** Every path you report and every level you assign gets
 evidence - a `file:line`, a config value, a prompt. If you cannot point at it, say
 "unknown", never guess. This scan about verification must itself be verifiable.
+
+## Mode 1 - verify a text (when the user hands you a document, a file, or output)
+
+Apply the ProveML discipline to the text itself:
+
+1. **Extract the claims.** Every sentence that states a fact, a number, or a
+   judgment is a claim. List them; prose that claims nothing is out of scope.
+2. **Find the ground truth.** For each fact the claim names, locate the source in
+   the repo or the data the user points at - a measurement, a database row, a
+   config value, a log line. The user's data is the fact store; if no source
+   exists, the claim is *unverifiable*, which is a finding, not a pass.
+3. **Check three things per claim.** (a) Every named fact matches its source.
+   (b) Every number in the sentence is a sourced fact - an unsourced number is a
+   finding even when it happens to be right (ProveML calls this coverage).
+   (c) Every judgment ("healthy", "fast", "behind") holds against a threshold
+   that is *declared somewhere* - a judgment without a declared bar is opinion
+   dressed as measurement.
+4. **Report per claim**: verified / contradicted (with both values) /
+   unverifiable (nothing to check against) / uncovered (number without a source),
+   each with the evidence reference. Then the verdict line:
+   `hallucination-scan: <verified|contradicted> - <n>/<m> claims verified, <the worst finding>`.
+
+Never mark a claim verified because it is plausible; plausible-but-unchecked is
+exactly the failure this method exists for.
+
+## Mode 2 - audit the repo (no argument)
 
 ## Step 1 - inventory the speaking paths
 
