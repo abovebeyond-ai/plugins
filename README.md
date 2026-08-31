@@ -1,8 +1,9 @@
-# /trusted
+# /agent-scan
 
-**Is your agent trusted? Prove it.**
+**What's running on its own in your repo - and has it earned that?**
 
-`/trusted` audits the agentic system in your repository against the
+`/agent-scan` finds everything that acts without a human typing - agents, LLM
+calls, MCP servers, bots, scheduled jobs - and scores it against the
 [PAC framework](https://trustedagentic.ai) — Potential, Accountability, Control —
 and profiles every agent, playbook and automation on the six Agent Profiler axes.
 
@@ -15,15 +16,16 @@ or it is reported as *unknown*, never guessed.
 In [Claude Code](https://claude.com/claude-code):
 
 ```
-/plugin marketplace add abovebeyond-ai/trusted
-/plugin install trusted@abovebeyond
-/trusted
+/plugin marketplace add abovebeyond-ai/agent-scan
+/plugin install agent-scan@abovebeyond
+/agent-scan
 ```
 
 ## What you get
 
 - An **inventory** of everything in the repo that acts or decides without a human
-  typing: scheduled jobs, agents, playbooks, LLM calls, webhooks, auto-deploys.
+  typing: agents, playbooks, LLM calls, MCP servers and their tool grants,
+  webhooks, auto-deploys, scheduled jobs - and the credentials each one holds.
 - A **profile per entry** on the six axes:
   - **Autonomy** A1 suggestion → A5 autonomous — and whether the level is
     *earned* (computed from a track record) or merely *configured*
@@ -39,7 +41,7 @@ In [Claude Code](https://claude.com/claude-code):
 - One verdict line to close:
 
 ```
-trusted: not yet — A3 claimed, A1 earned
+agent-scan: not yet — A3 claimed, A1 earned
 ```
 
 ## Who this is for

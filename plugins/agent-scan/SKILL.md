@@ -1,10 +1,10 @@
 ---
-name: trusted
+name: agent-scan
 argument-hint: "[path]"
-description: Audit this repo's agentic system against the PAC framework (trustedagentic.ai) - profile every agent/playbook on the six Agent Profiler axes and answer the 19 governance questions, with file:line evidence for every score.
+description: Scan everything in this repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and score it on the PAC framework. Audit this repo's agentic system against the PAC framework (trustedagentic.ai) - profile every agent/playbook on the six Agent Profiler axes and answer the 19 governance questions, with file:line evidence for every score.
 ---
 
-# /trusted
+# /agent-scan
 
 
 Audit the current repository (or the system the user points at) against the **PAC
@@ -23,8 +23,9 @@ evidence is worth less than an axis honestly left open - say what you could not 
 ## Step 1 - inventory
 
 Find everything that acts or decides without a human typing: scheduled jobs, agents,
-playbooks, LLM calls, webhook handlers, auto-deploys, auto-merges, cron entries,
-CI actions that push or publish. For each, note: what it touches, who triggers it,
+playbooks, LLM calls, MCP servers and their tool grants, webhook handlers,
+auto-deploys, auto-merges, cron entries, CI actions that push or publish, and the
+credentials each of these holds. For each, note: what it touches, who triggers it,
 what happens when it is wrong. This list is the unit of the profile - score each
 entry, not the repo as a whole.
 
@@ -77,8 +78,8 @@ Output a compact profile: a table (entry x six axes, with the evidence reference
 each cell), then findings ranked by risk - worst first, in the form "X is at
 A?/B? with no ...", each with its evidence and the smallest fix that moves the
 level. Close with the axes you could not score and why, and end the report with one
-verdict line in this exact shape: `trusted: <yes|not yet> - <the single fact that
-decides it>` (e.g. `trusted: not yet - A3 claimed, A1 earned` or `trusted: B2 at
+verdict line in this exact shape: `agent-scan: <trusted|not yet> - <the single fact that
+decides it>` (e.g. `agent-scan: not yet - A3 claimed, A1 earned` or `agent-scan: trusted - B2 at
 0.91 lower bound, bar is 0.85`). That line is the takeaway; everything above it is
 the evidence. If the user asks for a
 shareable report, build it as an artifact.

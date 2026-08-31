@@ -1,0 +1,12 @@
+{
+    "name": "agent-scan",
+    "displayName": "agent-scan",
+    "version": "0.1.0",
+    "description": "Scans everything in your repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and scores it on the PAC framework (trustedagentic.ai): six profiler axes, 19 governance questions, file:line evidence, one verdict line.",
+    "author": {
+        "name": "Above Beyond",
+        "url": "https://abovebeyond.ai"
+    },
+    "license": "MIT",
+    "homepage": "https://trustedagentic.ai"
+}

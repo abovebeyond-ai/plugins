@@ -6,10 +6,10 @@
     },
     "plugins": [
         {
-            "name": "trusted",
-            "source": "./plugins/trusted",
-            "description": "Is your agent trusted? Prove it. Audits the agentic system in your repo against the PAC framework: six Agent Profiler axes, 19 governance questions, file:line evidence for every score."
+            "name": "agent-scan",
+            "source": "./plugins/agent-scan",
+            "description": "Scan everything in your repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and score it on the PAC framework's six profiler axes, with file:line evidence and one verdict line."
         }
     ],
-    "description": "Above Beyond's Claude Code plugins. First up: /trusted, the PAC framework audit for agentic systems."
+    "description": "Above Beyond's Claude Code plugins. First up: /agent-scan, the agentic-system audit scored on the PAC framework."
 }
