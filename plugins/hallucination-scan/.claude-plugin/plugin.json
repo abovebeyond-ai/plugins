@@ -1,0 +1,12 @@
+{
+    "name": "hallucination-scan",
+    "displayName": "hallucination-scan",
+    "version": "0.1.0",
+    "description": "Scans your repo for every path where raw model output reaches a human or a decision, and scores what stands in between - nothing, review, structure, or a verification gate (the ProveML bar). File:line evidence, one verdict line.",
+    "author": {
+        "name": "Above Beyond",
+        "url": "https://abovebeyond.ai"
+    },
+    "license": "MIT",
+    "homepage": "https://github.com/ShaneDeconinck/proveml"
+}

@@ -9,7 +9,12 @@
             "name": "agent-scan",
             "source": "./plugins/agent-scan",
             "description": "Scan everything in your repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and score it on the PAC framework's six profiler axes, with file:line evidence and one verdict line."
+        },
+        {
+            "name": "hallucination-scan",
+            "source": "./plugins/hallucination-scan",
+            "description": "Scan every path where model output reaches a human or a decision, and score what stands in between - nothing, review, structure, or a verification gate (the ProveML bar). File:line evidence, one verdict line."
         }
     ],
-    "description": "Above Beyond's Claude Code plugins. First up: /agent-scan, the agentic-system audit scored on the PAC framework."
+    "description": "Above Beyond's Claude Code plugins: /agent-scan (what acts on its own, scored on PAC) and /hallucination-scan (what speaks unchecked, scored on ProveML)."
 }
