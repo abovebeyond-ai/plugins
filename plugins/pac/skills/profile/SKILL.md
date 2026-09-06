@@ -238,7 +238,12 @@ evidence), each with confirm and dispute as text that behaves; the owner's
 questions in three columns by pillar, P blue, A amber, C green, each with a
 place to answer; what stands well; and a night band at the end with the verdict
 line, a meter of what is judged, and a copy of the judged claims as json.
-Answers and verdicts stay in the reader's browser; nothing is sent anywhere.
+Publish it with the `db` capability when a team will judge it: verdicts and
+answers then live in the page's own store, each signed with name and role, and
+every viewer sees the others' live; the page still works alone in one browser
+when the store is not granted. A page with a store is organisation-internal on
+claude.ai, so for a client team the viewers must be members of the owner's
+organisation; say so before the workshop. Nothing is sent anywhere else.
 Paper ground, Lato and Spline Sans Mono, 6px corners, no middle-dot chains, no
 em dashes, no spaced capitals.
 

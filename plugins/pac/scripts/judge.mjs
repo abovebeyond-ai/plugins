@@ -33,8 +33,24 @@ function readJudged() {
   const j = JSON.parse(raw);
   if (j.judged_by && !by) judgedBy = j.judged_by;
   const list = [];
-  for (const c of j.claims || []) list.push({ id: c.id, entry: c.entry, axis: c.axis, statement: c.statement, verdict: c.verdict || null, note: c.note || null });
-  for (const [i, q] of (j.questions || []).entries()) list.push({ id: `question/${i + 1}`, axis: 'question', statement: q.question, answer: q.answer || null });
+  // three shapes: the page export (claims[] with verdicts[] per claim), a claims file, or the
+  // raw rows of the page's store (an array of {claim, verdict, by, note}) saved by read_db
+  const rows = Array.isArray(j) ? j : Array.isArray(j.rows) ? j.rows : null;
+  if (rows) {
+    for (const r of rows) {
+      if (r.claim && r.verdict) list.push({ id: r.claim, verdict: r.verdict, by: r.by || null, note: r.note || null });
+      if (r.question && r.answer) list.push({ id: r.question, axis: 'question', answer: r.answer, by: r.by || null });
+    }
+    return list;
+  }
+  for (const c of j.claims || []) {
+    if (Array.isArray(c.verdicts) && c.verdicts.length) for (const v of c.verdicts) list.push({ id: c.id, entry: c.entry, axis: c.axis, statement: c.statement, verdict: v.verdict, by: v.by || null, note: v.note || null });
+    else list.push({ id: c.id, entry: c.entry, axis: c.axis, statement: c.statement, verdict: c.verdict || null, by: c.judged_by || null, note: c.note || null });
+  }
+  for (const [i, q] of (j.questions || []).entries()) {
+    if (Array.isArray(q.answers) && q.answers.length) for (const a of q.answers) list.push({ id: q.id || `question/${i + 1}`, axis: 'question', statement: q.question, answer: a.answer, by: a.by || null });
+    else list.push({ id: q.id || `question/${i + 1}`, axis: 'question', statement: q.question, answer: q.answer || null, by: j.judged_by || null });
+  }
   return list;
 }
 
@@ -53,15 +69,27 @@ if (judged) {
   for (const j of judged) {
     const c = find(j);
     if (!c) { changes.push({ kind: 'unmatched', id: j.id || j.entry || j.statement }); continue; }
+    const who = j.by || judgedBy || null;
     if (j.axis === 'question' || c.axis === 'question') {
-      if (j.answer && j.answer !== c.answer) { c.answer = j.answer; c.status = 'answered'; c.judged_at = today; changes.push({ kind: 'answered', id: c.id }); }
+      if (!j.answer) continue;
+      c.answers = c.answers || [];
+      const prev = c.answers.find(a => a.by === who);
+      if (prev && prev.answer === j.answer) continue;
+      if (prev) prev.answer = j.answer; else c.answers.push({ answer: j.answer, by: who });
+      c.answer = c.answers.map(a => `${a.by || 'unsigned'}: ${a.answer}`).join(' / ');
+      c.status = 'answered'; c.judged_at = today; changes.push({ kind: 'answered', id: c.id, to: who || 'unsigned' });
       continue;
     }
     if (!j.verdict) continue;
-    if (c.verdict && c.verdict !== j.verdict) changes.push({ kind: 'flipped', id: c.id, from: c.verdict, to: j.verdict });
-    else if (!c.verdict) changes.push({ kind: 'judged', id: c.id, to: j.verdict });
-    else continue;
-    c.verdict = j.verdict; c.status = 'judged'; c.judged_at = today; c.judged_by = judgedBy || null; if (j.note) c.note = j.note;
+    c.verdicts = c.verdicts || [];
+    const prev = c.verdicts.find(v => v.by === who);
+    if (prev && prev.verdict === j.verdict) continue;
+    if (prev) { changes.push({ kind: 'flipped', id: c.id, from: `${prev.verdict}, ${who || 'unsigned'}`, to: j.verdict }); prev.verdict = j.verdict; if (j.note) prev.note = j.note; }
+    else { changes.push({ kind: 'judged', id: c.id, to: `${j.verdict}, ${who || 'unsigned'}` }); c.verdicts.push({ verdict: j.verdict, by: who, note: j.note || null, at: today }); }
+    const before = c.verdict;
+    c.verdict = c.verdicts.some(v => v.verdict === 'disputed') ? 'disputed' : 'confirmed';
+    if (before && before !== c.verdict) changes.push({ kind: 'consensus', id: c.id, from: before, to: c.verdict });
+    c.status = 'judged'; c.judged_at = today; c.judged_by = c.verdicts.map(v => v.by || 'unsigned').join(', ');
   }
   file.judged_at = today;
   writeFileSync(claimsPath, JSON.stringify(file, null, 2) + '\n');
@@ -91,11 +119,15 @@ if (changes.length) {
   for (const ch of changes) out.push(`| ${ch.kind} | ${ch.id} | ${ch.from || ''} | ${ch.to || ''} |`);
   out.push('');
 }
-const unsigned = judgedClaims.filter(c => !c.judged_by).length;
+const unsigned = judgedClaims.filter(c => (c.verdicts || []).some(v => !v.by) || (!c.verdicts && !c.judged_by)).length;
 out.push(`judged: ${judgedClaims.length} of ${scored.length + boundary.length} claims, ${confirmed} confirmed, ${disputed.length} disputed; ${answered} of ${questions.length} questions answered`);
 if (unsigned) out.push(`unsigned: ${unsigned} verdicts carry no judge; pass --by "name, role"`);
 if (reliability !== null) out.push(`profiler: ${confirmed} of ${judgedClaims.length} judged claims survived (${Math.round(reliability * 100)}%)`);
-for (const d of disputed) out.push(`disputed: ${d.entry}${d.note ? ` (${d.note})` : ''}`);
+for (const d of disputed) { const v = (d.verdicts || []).find(x => x.verdict === 'disputed'); out.push(`disputed: ${d.entry}${v ? ` by ${v.by || 'unsigned'}` : ''}${(v && v.note) || d.note ? ` (${(v && v.note) || d.note})` : ''}`); }
+const split = [...scored, ...boundary].filter(c => (c.verdicts || []).some(v => v.verdict === 'confirmed') && (c.verdicts || []).some(v => v.verdict === 'disputed'));
+for (const c of split) out.push(`split: ${c.entry}, ${c.verdicts.map(v => `${v.verdict} by ${v.by || 'unsigned'}`).join(', ')}; a dispute wins until it is withdrawn`);
+const judges = new Set([...scored, ...boundary].flatMap(c => (c.verdicts || []).map(v => v.by).filter(Boolean)));
+if (judges.size) out.push(`judges: ${[...judges].join('; ')}`);
 out.push('');
 out.push('next, furthest reach first:');
 for (const c of next) out.push(`  /pac:profile --entry "${c.entry}" --level ${(c.level ?? 0) + 1}`);

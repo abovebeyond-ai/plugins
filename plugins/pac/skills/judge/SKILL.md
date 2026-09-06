@@ -22,10 +22,21 @@ flagged as unsigned.
 1. Find the claims file: the argument, else `pac-claims.json` in the current
    directory, else the scratchpad of the last profile. No file: say so and
    point at `/pac:profile`; there is nothing to judge.
-2. Take the verdicts from the second argument (a file), from stdin (the page's
-   "copy judged claims as json", pasted), or from the owner speaking them in
-   the conversation ("the scout is off since July, dispute it"). Spoken verdicts
-   go through the same merge, with the reason as `note`.
+2. Take the verdicts from one of four places, in this order of preference:
+   - **the shared page's store**, when the review page was published with the
+     `db` capability: read the `verdicts` and `answers` collections with the
+     Artifact tool (`action: read_db`, `db_op: list`, `out_dir` into the
+     scratchpad), gather the rows into one json array, and pass that file. This
+     is the team's judgement, every row signed; nothing to paste;
+   - a file given as the second argument;
+   - stdin, the page's "copy judged claims as json", pasted;
+   - the owner speaking them in the conversation ("the scout is off since July,
+     dispute it"). Spoken verdicts go through the same merge, with the reason as
+     `note` and the speaker as `--by`.
+   Several people may judge one claim. Every signed verdict is kept; the claim's
+   own verdict is the consensus, and one dispute disputes it until withdrawn. A
+   split claim (confirmed by one discipline, disputed by another) is listed as
+   such: that is the workshop's agenda, not a bug.
 3. Run the merge, which is deterministic and lives next to this file:
 
    ```
