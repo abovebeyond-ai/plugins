@@ -115,6 +115,16 @@ undocumented contract. For each entry ask what it can read that it does not need
 deploy from one scheduler is not one row. Split it by what each action touches,
 because that is what blast radius scores.
 
+**Plumbing is not an agent.** For each entry, note what decides: a *model*, a
+*rule* (a heuristic, a threshold, a schedule that chooses), or *none*. A webhook
+that posts a signup to a CRM, a route that rewrites a crontab on request, a
+reader that fetches a health endpoint with its own token: these decide nothing.
+They are boundary crossings, and they matter to Control, but they are not rows
+on the map. They go under the table as "crosses the boundary", one line each
+with evidence, and they are never scored on autonomy. Without this split the
+first run put a plain webhook next to the supervisor, and the owner's first
+question was whether that was an agent at all.
+
 ## Step 2 - the six axes (level 1 and up)
 
 1. **Autonomy** - A1 suggestion (text only, human does the work), A2 approve
@@ -180,13 +190,18 @@ pac profiler, level N, <system> at <sha>, <date>
 
 <1. one sentence in the owner's words: how many things act alone, how many reach outside>
 
-| what acts alone | reach | label | evidence | level |
-|---|---|---|---|---|
-<2. one row per entry, ordered by reach: the furthest first. Reach is one of:
-    outside (customers, third parties, mail), machine (spends, changes the host),
-    inside (writes the system's own data), proposes (a person decides), reads.
-    Label is the plain-words tag, evidence one file:line, level the depth reached
-    for that row. At level 1 and up, add the six axes as columns after reach.>
+| what acts alone | decides | reach | label | evidence | level |
+|---|---|---|---|---|---|
+<2. one row per entry that decides (model or rule), ordered by reach: the
+    furthest first. Reach is one of: outside (customers, third parties, mail),
+    machine (spends, changes the host), inside (writes the system's own data),
+    proposes (a person decides), reads. Label is the plain-words tag, evidence
+    one file:line, level the depth reached for that row. At level 1 and up, add
+    the six axes as columns after reach.>
+
+crosses the boundary
+<2b. the entries that decide nothing but move data in or out: one line each,
+    what crosses and with which credential, with evidence. Not scored.>
 
 questions
 <3. numbered, one line each, prefixed with the pillar letter (P, A, C): the
@@ -204,8 +219,8 @@ abovebeyond, trustedagentic.ai/framework, pac profiler <version>
 "Where each stands" is a column in the table (level), not a section; at
 level 0 it reads `unknown` for every row except the ones that carry a ledger
 by construction. Nothing else goes to the terminal: no paragraphs between the
-blocks, no repeat of the table as prose, no list of claims (the table is the
-list of claims, and the claims file carries them).
+blocks, no repeat of the table as prose, no list of claims (the table and the
+boundary list are the claims, and the claims file carries them).
 
 The verdict line's shape is fixed: `pac: not yet - A5 configured, A0 earned`,
 `pac: trusted - B2 at 0.91 lower bound, bar is 0.85`. If a previous run was
