@@ -1,0 +1,566 @@
+{
+  "axes": [
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 14"
+        ],
+        "iso": [
+          "A.9.2"
+        ],
+        "nist": [
+          "MANAGE 2"
+        ]
+      },
+      "description": "The level of independence the agent earns.",
+      "id": "autonomy",
+      "levels": [
+        {
+          "id": "A1",
+          "name": "Suggestion"
+        },
+        {
+          "id": "A2",
+          "name": "Approve"
+        },
+        {
+          "id": "A3",
+          "name": "Oversight"
+        },
+        {
+          "id": "A4",
+          "name": "Delegated"
+        },
+        {
+          "id": "A5",
+          "name": "Autonomous"
+        }
+      ],
+      "measure": null,
+      "name": "Autonomy",
+      "pillar": "P"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 9",
+          "Annex III"
+        ],
+        "iso": [
+          "A.5"
+        ],
+        "nist": [
+          "MAP 5"
+        ]
+      },
+      "description": "What happens when it doesn't.",
+      "id": "blast-radius",
+      "levels": [
+        {
+          "id": "B1",
+          "name": "Contained"
+        },
+        {
+          "id": "B2",
+          "name": "Recoverable"
+        },
+        {
+          "id": "B3",
+          "name": "Exposed"
+        },
+        {
+          "id": "B4",
+          "name": "Regulated"
+        },
+        {
+          "id": "B5",
+          "name": "Irreversible"
+        }
+      ],
+      "measure": null,
+      "name": "Blast radius",
+      "pillar": "P"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 15"
+        ],
+        "iso": [
+          "A.6.2.4"
+        ],
+        "nist": [
+          "MEASURE 2"
+        ]
+      },
+      "description": "How often it gets it right, and how confident you are in that number. Measured as a percentage with its error margin — the implementation pattern determines how knowable that margin is.",
+      "id": "reliability",
+      "levels": [],
+      "measure": "percentage with its error margin",
+      "name": "Reliability",
+      "pillar": "P"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 9"
+        ],
+        "iso": [
+          "A.5.2"
+        ],
+        "nist": [
+          "GOVERN 1.3"
+        ]
+      },
+      "description": "Where the line is drawn. A contained task may need 80% reliability; an irreversible one needs 99%+.",
+      "id": "governance-thresholds",
+      "levels": [],
+      "measure": "the reliability bar per autonomy level, rising with blast radius",
+      "name": "Governance thresholds",
+      "pillar": "A"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 12",
+          "Art. 15"
+        ],
+        "iso": [
+          "A.6.2.6",
+          "A.6.2.8"
+        ],
+        "nist": [
+          "MANAGE 1"
+        ]
+      },
+      "description": "The guardrails in place.",
+      "id": "infrastructure",
+      "levels": [
+        {
+          "id": "I1",
+          "name": "Open"
+        },
+        {
+          "id": "I2",
+          "name": "Logged"
+        },
+        {
+          "id": "I3",
+          "name": "Verified"
+        },
+        {
+          "id": "I4",
+          "name": "Authorized"
+        },
+        {
+          "id": "I5",
+          "name": "Contained"
+        }
+      ],
+      "measure": null,
+      "name": "Infrastructure",
+      "pillar": "C"
+    },
+    {
+      "crosswalk": {
+        "eu": [],
+        "iso": [
+          "A.6.1.2"
+        ],
+        "nist": [
+          "MAP 1"
+        ]
+      },
+      "description": "Why it matters.",
+      "id": "business-value",
+      "levels": [
+        {
+          "id": "V1",
+          "name": "Incremental"
+        },
+        {
+          "id": "V2",
+          "name": "Operational"
+        },
+        {
+          "id": "V3",
+          "name": "Strategic"
+        },
+        {
+          "id": "V4",
+          "name": "Transformative"
+        }
+      ],
+      "measure": null,
+      "name": "Business value",
+      "pillar": "P"
+    }
+  ],
+  "crosswalk_frames": {
+    "eu": "EU AI Act, Regulation (EU) 2024/1689 (GDPR where named)",
+    "iso": "ISO/IEC 42001:2023, Annex A controls",
+    "nist": "NIST AI RMF 1.0, functions and subcategories"
+  },
+  "framework": "PAC",
+  "language": "en",
+  "page": "https://trustedagentic.ai/framework/",
+  "pillars": [
+    {
+      "answers": "business",
+      "id": "P",
+      "name": "Potential",
+      "question": "What's worth building that lasts?",
+      "questions": [
+        "P1",
+        "P2",
+        "P3",
+        "P4",
+        "P5",
+        "P6",
+        "P7"
+      ]
+    },
+    {
+      "answers": "liability",
+      "id": "A",
+      "name": "Accountability",
+      "question": "Who's accountable, and can you prove it?",
+      "questions": [
+        "A1",
+        "A2",
+        "A3",
+        "A4",
+        "A5"
+      ]
+    },
+    {
+      "answers": "engineering",
+      "id": "C",
+      "name": "Control",
+      "question": "Can your infrastructure enforce what policy demands?",
+      "questions": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6",
+        "C7"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "crosswalk": {
+        "eu": [],
+        "iso": [
+          "A.6.1.2"
+        ],
+        "nist": [
+          "MAP 1"
+        ]
+      },
+      "id": "P1",
+      "pillar": "P",
+      "text": "What decisions are you not yet delegating to agents, and what's that costing you?"
+    },
+    {
+      "crosswalk": {
+        "eu": [],
+        "iso": [
+          "A.6.2"
+        ],
+        "nist": [
+          "MANAGE 2"
+        ]
+      },
+      "id": "P2",
+      "pillar": "P",
+      "text": "Will better models make your current setup more valuable, or obsolete?"
+    },
+    {
+      "crosswalk": {
+        "eu": [],
+        "iso": [
+          "A.5"
+        ],
+        "nist": [
+          "MAP 1"
+        ]
+      },
+      "id": "P3",
+      "pillar": "P",
+      "text": "How much value are you leaving on the table by over-constraining?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 3"
+        ],
+        "iso": [
+          "A.6.1.2"
+        ],
+        "nist": [
+          "MAP 1"
+        ]
+      },
+      "id": "P4",
+      "pillar": "P",
+      "text": "Are your agents actually making decisions, or just automating steps humans already defined?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 10"
+        ],
+        "iso": [
+          "A.7"
+        ],
+        "nist": [
+          "MAP 2"
+        ]
+      },
+      "id": "P5",
+      "pillar": "P",
+      "text": "Does the right context reach your agents at the right time?"
+    },
+    {
+      "crosswalk": {
+        "eu": [],
+        "iso": [
+          "A.10"
+        ],
+        "nist": [
+          "GOVERN 6"
+        ]
+      },
+      "id": "P6",
+      "pillar": "P",
+      "text": "Are you building on established and emerging standards, or on an island?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 13",
+          "Art. 15"
+        ],
+        "iso": [
+          "A.6.2.4"
+        ],
+        "nist": [
+          "MEASURE 2"
+        ]
+      },
+      "id": "P7",
+      "pillar": "P",
+      "text": "Do you know the error margin on your agent's reliability, or just the headline number?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 26",
+          "Art. 49"
+        ],
+        "iso": [
+          "A.4.2"
+        ],
+        "nist": [
+          "GOVERN 1.6"
+        ]
+      },
+      "id": "A1",
+      "pillar": "A",
+      "text": "Do you know every agent running in your organisation?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 25",
+          "Art. 26"
+        ],
+        "iso": [
+          "A.3.2"
+        ],
+        "nist": [
+          "GOVERN 2"
+        ]
+      },
+      "id": "A2",
+      "pillar": "A",
+      "text": "If an agent causes harm, is the liability chain clear?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 49"
+        ],
+        "iso": [
+          "A.4.2"
+        ],
+        "nist": [
+          "GOVERN 1.6"
+        ]
+      },
+      "id": "A3",
+      "pillar": "A",
+      "text": "Can your infrastructure prevent an agent from running without being registered?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 12",
+          "Art. 13",
+          "Art. 86"
+        ],
+        "iso": [
+          "A.6.2.8",
+          "A.8.2"
+        ],
+        "nist": [
+          "GOVERN 4"
+        ]
+      },
+      "id": "A4",
+      "pillar": "A",
+      "text": "Could you explain to a regulator what your agent did and why?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 12",
+          "Art. 14"
+        ],
+        "iso": [
+          "A.6.2.8"
+        ],
+        "nist": [
+          "MANAGE 2"
+        ]
+      },
+      "id": "A5",
+      "pillar": "A",
+      "text": "When an agent makes a consequential decision, can you trace who authorised it and what happened?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 9",
+          "Art. 15"
+        ],
+        "iso": [
+          "A.6.2.6"
+        ],
+        "nist": [
+          "MANAGE 1"
+        ]
+      },
+      "id": "C1",
+      "pillar": "C",
+      "text": "Are your agents contained by architecture, or only by policy?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 25"
+        ],
+        "iso": [
+          "A.10.2",
+          "A.10.3"
+        ],
+        "nist": [
+          "GOVERN 6"
+        ]
+      },
+      "id": "C2",
+      "pillar": "C",
+      "text": "When agents delegate to other agents, can authority only decrease?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 14",
+          "Art. 26"
+        ],
+        "iso": [
+          "A.9.2",
+          "A.6.2.6"
+        ],
+        "nist": [
+          "MANAGE 2"
+        ]
+      },
+      "id": "C3",
+      "pillar": "C",
+      "text": "What happens when human oversight breaks down in practice?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 10",
+          "GDPR Art. 5",
+          "GDPR Art. 25"
+        ],
+        "iso": [
+          "A.7"
+        ],
+        "nist": [
+          "MEASURE 2"
+        ]
+      },
+      "id": "C4",
+      "pillar": "C",
+      "text": "How do you balance agent quality with data privacy?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 15"
+        ],
+        "iso": [
+          "A.6.2.6"
+        ],
+        "nist": [
+          "MANAGE 1"
+        ]
+      },
+      "id": "C5",
+      "pillar": "C",
+      "text": "Are agents restricted to what they can do, or only blocked from what they can't?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 25"
+        ],
+        "iso": [
+          "A.10"
+        ],
+        "nist": [
+          "GOVERN 6"
+        ]
+      },
+      "id": "C6",
+      "pillar": "C",
+      "text": "Does your agent setup work when agents need to cross trust boundaries?"
+    },
+    {
+      "crosswalk": {
+        "eu": [
+          "Art. 9",
+          "Art. 72"
+        ],
+        "iso": [
+          "A.6.2.6"
+        ],
+        "nist": [
+          "MANAGE 4"
+        ]
+      },
+      "id": "C7",
+      "pillar": "C",
+      "text": "What happens when an agent wanders into a use case you didn't anticipate?"
+    }
+  ],
+  "source": "https://trustedagentic.ai/framework/pac.json",
+  "version": "2026-09-06"
+}

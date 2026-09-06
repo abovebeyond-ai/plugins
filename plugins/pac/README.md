@@ -36,6 +36,15 @@ In [Claude Code](https://claude.com/claude-code):
 /pac:judge                # fold the verdicts from the page back into the claims file
 ```
 
+## The framework is data
+
+The axes, the 19 questions and their crosswalk to the EU AI Act, ISO/IEC 42001
+and NIST AI RMF come from `framework/pac.json`, a copy of what the site serves at
+[trustedagentic.ai/framework/pac.json](https://trustedagentic.ai/framework/pac.json).
+The skill's tables are rendered from it (`scripts/framework.mjs --render`) and
+`--check` reports drift against the live file. Every claim names the framework
+ids it speaks to, so a claims file reads against the crosswalk without translation.
+
 ## Levels
 
 | level | establishes |
