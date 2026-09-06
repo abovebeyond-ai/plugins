@@ -1,8 +1,8 @@
 {
     "name": "agent-scan",
-    "displayName": "agent-scan",
-    "version": "0.2.0",
-    "description": "Scans everything in your repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and scores it on the PAC framework (trustedagentic.ai): six profiler axes, 19 governance questions, file:line evidence, one verdict line.",
+    "displayName": "pac profiler",
+    "version": "0.3.0",
+    "description": "The PAC profiler (/pac, formerly /agent-scan): maps everything in your repo that acts on its own, profiles each thing on the PAC framework's six axes with a line of evidence per score, hands you the questions only you can answer, and ends in one line. Levels 0-4 say how hard it looked; a claims file keeps your judgements between runs.",
     "author": {
         "name": "Above Beyond",
         "url": "https://abovebeyond.ai"

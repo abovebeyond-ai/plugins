@@ -8,7 +8,7 @@
         {
             "name": "agent-scan",
             "source": "./plugins/agent-scan",
-            "description": "Scan everything in your repo that acts on its own - agents, LLM calls, MCP servers, bots, scheduled jobs - and score it on the PAC framework's six profiler axes, with file:line evidence and one verdict line."
+            "description": "The PAC profiler (/pac): map everything in your repo that acts on its own, profile it on the framework's six axes with evidence per score, keep your judgements in a claims file, end in one line."
         },
         {
             "name": "hallucination-scan",

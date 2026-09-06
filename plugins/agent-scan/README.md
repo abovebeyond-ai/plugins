@@ -1,56 +1,61 @@
-# /agent-scan
+```
+  ┓       ┓          ┓
+┏┓┣┓┏┓┓┏┏┓┣┓┏┓┓┏┏┓┏┓┏┫
+┗┻┗┛┗┛┗┛┗ ┗┛┗ ┗┫┗┛┛┗┗┻
+               ┛
+pac profiler
+```
 
-**What's running on its own in your repo - and has it earned that?**
+# /pac
 
-`/agent-scan` finds everything that acts without a human typing - agents, LLM
-calls, MCP servers, bots, scheduled jobs - and scores it against the
-[PAC framework](https://trustedagentic.ai) — Potential, Accountability, Control —
-and profiles every agent, playbook and automation on the six Agent Profiler axes.
+**What in this repository acts without a person, and has it earned that?**
 
-One rule sets it apart from every governance questionnaire: **prove, don't claim.**
-Every level comes with evidence — a `file:line`, a config value, a command output —
-or it is reported as *unknown*, never guessed.
+`/pac` (formerly `/agent-scan`) maps everything that acts without a human typing
+- agents, LLM calls, MCP servers, bots, scheduled jobs, deploys - and profiles
+each one on the [PAC framework](https://trustedagentic.ai): Potential,
+Accountability, Control, and the six Agent Profiler axes.
+
+It assumes you run your agents consciously. It makes that cheaper; it does not
+do it for you. Its output is a map in plain words, the questions only you can
+answer, and a set of claims with a line of evidence each, for you to confirm or
+dispute. Your judgement is the deliverable.
+
+**Prove, don't claim.** Every level comes with a `file:line`, a config value or
+a command output, or it is reported as *unknown*.
 
 ## Run it
 
 In [Claude Code](https://claude.com/claude-code):
 
 ```
-/plugin marketplace add abovebeyond-ai/agent-scan
+/plugin marketplace add abovebeyond-ai/plugins
 /plugin install agent-scan@abovebeyond
-/agent-scan
+/pac                      # level 1 on the whole repository
+/pac --level 0            # the map only, minutes
+/pac --entry auto-deploy --level 3   # one row, as deep as the running system allows
 ```
+
+## Levels
+
+| level | establishes |
+|---|---|
+| 0 | the map: everything that acts alone, one file reference each |
+| 1 | the profile: the six axes as configured, evidence per cell |
+| 2 | the gates: does each approval path, credential scope and limit exist in fact |
+| 3 | the record: measured outcomes, who judges, an error margin |
+| 4 | earned: levels computed from a ledger of judged claims |
+
+Run level 0 on everything, judge the rows, go deeper on one row at a time,
+highest blast radius first. The table is the same at every depth.
 
 ## What you get
 
-- An **inventory** of everything in the repo that acts or decides without a human
-  typing: agents, playbooks, LLM calls, MCP servers and their tool grants,
-  webhooks, auto-deploys, scheduled jobs - and the credentials each one holds.
-- A **profile per entry** on the six axes:
-  - **Autonomy** A1 suggestion → A5 autonomous — and whether the level is
-    *earned* (computed from a track record) or merely *configured*
-  - **Blast radius** B1 contained → B5 irreversible, scored in context
-  - **Reliability** — a lower confidence bound over judged outcomes, not a
-    headline number
-  - **Governance thresholds** — does the reliability bar rise with blast radius?
-  - **Infrastructure** I1 open → I5 contained — enforced by architecture, or
-    only by policy?
-  - **Business value** V1 → V4
-- The framework's **19 questions** answered against your own code, one line each.
-- Findings ranked by risk, each with the smallest fix that moves the level.
-- One verdict line to close:
+1. One sentence: how many things act alone, how many reach outside.
+2. Your questions: the decisions only you can make, about your system.
+3. The map: one row per thing, plain words first, evidence, level reached.
+4. Where each stands: allowed, earned, and what would move it.
+5. What stands well.
+6. The claims, numbered, in `pac-claims.json`, for you to confirm or dispute.
+   A later run keeps your verdicts and shows what changed.
 
-```
-agent-scan: not yet — A3 claimed, A1 earned
-```
-
-## Who this is for
-
-Teams shipping agents who want the autonomy question answered with evidence
-instead of a policy document. Technical enough to challenge your engineers,
-short enough to brief your board.
-
----
-
-By [Above Beyond](https://abovebeyond.ai) — the reference implementation of the
-[PAC framework](https://trustedagentic.ai).
+And one line: `pac: not yet - A5 configured, A0 earned`.
