@@ -1,7 +1,7 @@
 ---
-name: pac
+name: profile
 argument-hint: "[path] [--level 0-4] [--entry <name>]"
-description: The PAC profiler. Map everything in a repository that acts without a person, profile each thing on the PAC framework's six axes with a line of evidence per score, hand the owner the questions only they can answer, and end in one line. Formerly /agent-scan; the old name still describes it.
+description: The PAC profiler. Map everything in a repository that acts without a person, profile each thing on the PAC framework's six axes with a line of evidence per score, hand the owner the questions only they can answer, and end in one line. The plugin is the framework, the skill is the verb; /pac:judge and /pac:diff can follow.
 ---
 
 ```
@@ -12,7 +12,7 @@ description: The PAC profiler. Map everything in a repository that acts without 
 pac profiler
 ```
 
-# /pac
+# /pac:profile
 
 Profile the current repository (or the system the user points at) against the
 **PAC framework** from trustedagentic.ai: three pillars - **Potential,

@@ -6,11 +6,11 @@
 pac profiler
 ```
 
-# /pac
+# /pac:profile
 
 **What in this repository acts without a person, and has it earned that?**
 
-`/pac` (formerly `/agent-scan`) maps everything that acts without a human typing
+`/pac:profile` maps everything that acts without a human typing
 - agents, LLM calls, MCP servers, bots, scheduled jobs, deploys - and profiles
 each one on the [PAC framework](https://trustedagentic.ai): Potential,
 Accountability, Control, and the six Agent Profiler axes.
@@ -29,10 +29,10 @@ In [Claude Code](https://claude.com/claude-code):
 
 ```
 /plugin marketplace add abovebeyond-ai/plugins
-/plugin install agent-scan@abovebeyond
-/pac                      # level 1 on the whole repository
-/pac --level 0            # the map only, minutes
-/pac --entry auto-deploy --level 3   # one row, as deep as the running system allows
+/plugin install pac@abovebeyond
+/pac:profile              # level 1 on the whole repository
+/pac:profile --level 0    # the map only, minutes
+/pac:profile --entry auto-deploy --level 3   # one row, as deep as the running system allows
 ```
 
 ## Levels
