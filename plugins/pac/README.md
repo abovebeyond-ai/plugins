@@ -50,9 +50,10 @@ highest blast radius first. The table is the same at every depth.
 
 ## What you get
 
-In the terminal, one table: a row per thing that acts alone, ordered by how
-far a mistake travels, with a plain-words label, one line of evidence and the
-level reached. Under it your questions, one line each by pillar, and what
+In the terminal, one table: a row per thing that decides on its own, a model
+or a rule, ordered by how far a mistake travels, with a plain-words label, one line of evidence and the
+level reached. Under it what crosses the boundary without deciding (a webhook,
+a reader with its own token), then your questions, one line each by pillar, and what
 stands well. Then one line: `pac: not yet - A5 configured, A0 earned`.
 
 The judging happens on a page, built from `pac-claims.json`: the map as cards,
