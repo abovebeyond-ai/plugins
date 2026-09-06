@@ -83,7 +83,10 @@ zoom - the same six columns for the whole system and for one script.
   declared". Do not discover its absence at the end.
 - **Previous run.** If a claims file from an earlier run exists (see the claims
   file below), load it: the report opens with what changed since, and judged
-  claims keep their verdicts.
+  claims keep their verdicts. Verdicts arrive through `/pac:judge`.
+- **Who judges.** The questions belong to different people: Potential to the
+  business owner, Accountability to whoever carries the liability, Control to
+  engineering. Say so on the page, so the right person answers each column.
 
 ## Step 1 - the map
 
@@ -251,8 +254,11 @@ scratchpad if the directory must stay clean): one object per claim.
   "status": "claimed", "verdict": null, "judged_at": null, "note": null }
 ```
 
-`status` is `claimed` until the owner sets `verdict` to `confirmed` or
-`disputed`; questions for the owner are claims with `axis: "question"`. A later
+`status` is `claimed` until a verdict lands (`confirmed` or `disputed`, with
+`judged_by` as name and role, because judging is interdisciplinary and a
+verdict without a judge is unsigned); questions for the owner are claims with
+`axis: "question"`; boundary crossings carry `axis: "boundary"` and `"decides": "none"`.
+Verdicts come back through `/pac:judge`, from the page's json export or spoken. A later
 run loads this file, keeps every verdict, marks claims whose evidence moved as
 `stale`, and adds new ones. The profiler's own reliability is the share of its
 claims that survive judgement; report it when a judged file is loaded.

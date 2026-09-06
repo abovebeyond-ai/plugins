@@ -33,6 +33,7 @@ In [Claude Code](https://claude.com/claude-code):
 /pac:profile              # level 1 on the whole repository
 /pac:profile --level 0    # the map only, minutes
 /pac:profile --entry auto-deploy --level 3   # one row, as deep as the running system allows
+/pac:judge                # fold the verdicts from the page back into the claims file
 ```
 
 ## Levels
@@ -59,4 +60,7 @@ stands well. Then one line: `pac: not yet - A5 configured, A0 earned`.
 The judging happens on a page, built from `pac-claims.json`: the map as cards,
 confirm or dispute per claim, your questions with room to answer, and the
 verdict line following what survives. Answers and verdicts stay in your
-browser. A later run keeps your verdicts and shows what changed.
+browser. `/pac:judge` folds them back into the claims file, signed with who judged
+(business, legal, engineering: it is an interdisciplinary exercise), reports how many
+of the profiler's claims survived, and names the next rows to go deeper on. A later
+profile starts from those verdicts.
