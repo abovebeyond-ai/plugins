@@ -6,7 +6,7 @@ Claude Code skills that answer one question each, with evidence.
 /plugin marketplace add abovebeyond-ai/plugins
 ```
 
-## /agent-scan
+## /pac:profile
 
 **What's running on its own in your repo - and has it earned that?**
 Finds everything that acts without a human typing - agents, LLM calls, MCP servers,
@@ -14,8 +14,8 @@ bots, scheduled jobs - and scores it on the [PAC framework](https://trustedagent
 autonomy earned or configured, blast radius, reliability with an error margin.
 
 ```
-/plugin install agent-scan@abovebeyond
-/agent-scan
+/plugin install pac@abovebeyond
+/pac:profile
 ```
 
 ## /hallucination-scan

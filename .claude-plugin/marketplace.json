@@ -6,9 +6,9 @@
     },
     "plugins": [
         {
-            "name": "agent-scan",
-            "source": "./plugins/agent-scan",
-            "description": "The PAC profiler (/pac): map everything in your repo that acts on its own, profile it on the framework's six axes with evidence per score, keep your judgements in a claims file, end in one line."
+            "name": "pac",
+            "source": "./plugins/pac",
+            "description": "The PAC profiler (/pac:profile): map everything in your repo that acts on its own, profile it on the framework's six axes with evidence per score, keep your judgements in a claims file, end in one line."
         },
         {
             "name": "hallucination-scan",
@@ -16,5 +16,5 @@
             "description": "Scan every path where model output reaches a human or a decision, and score what stands in between - nothing, review, structure, or a verification gate (the ProveML bar). File:line evidence, one verdict line."
         }
     ],
-    "description": "Above Beyond's Claude Code plugins: /agent-scan (what acts on its own, scored on PAC) and /hallucination-scan (what speaks unchecked, scored on ProveML)."
+    "description": "Above Beyond's Claude Code plugins: /pac:profile (what acts on its own, scored on PAC) and /hallucination-scan (what speaks unchecked, scored on ProveML)."
 }
