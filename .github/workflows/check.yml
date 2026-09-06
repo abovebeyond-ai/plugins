@@ -1,0 +1,22 @@
+name: check
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "20 6 * * 1"   # Monday: did the framework move without the skill?
+jobs:
+  pac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: judge merges what it promises
+        run: node --test "plugins/pac/test/*.test.mjs"
+      - name: the skill's tables are what the framework file says
+        run: |
+          cp plugins/pac/skills/profile/SKILL.md /tmp/skill.before
+          node plugins/pac/scripts/framework.mjs --render
+          diff -q /tmp/skill.before plugins/pac/skills/profile/SKILL.md || { echo "SKILL.md was edited by hand inside a generated section, or not re-rendered"; exit 1; }
+      - name: the framework file is what the site serves
+        run: node plugins/pac/scripts/framework.mjs --check
