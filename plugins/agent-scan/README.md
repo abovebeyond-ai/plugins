@@ -50,12 +50,12 @@ highest blast radius first. The table is the same at every depth.
 
 ## What you get
 
-1. One sentence: how many things act alone, how many reach outside.
-2. Your questions: the decisions only you can make, about your system.
-3. The map: one row per thing, plain words first, evidence, level reached.
-4. Where each stands: allowed, earned, and what would move it.
-5. What stands well.
-6. The claims, numbered, in `pac-claims.json`, for you to confirm or dispute.
-   A later run keeps your verdicts and shows what changed.
+In the terminal, one table: a row per thing that acts alone, ordered by how
+far a mistake travels, with a plain-words label, one line of evidence and the
+level reached. Under it your questions, one line each by pillar, and what
+stands well. Then one line: `pac: not yet - A5 configured, A0 earned`.
 
-And one line: `pac: not yet - A5 configured, A0 earned`.
+The judging happens on a page, built from `pac-claims.json`: the map as cards,
+confirm or dispute per claim, your questions with room to answer, and the
+verdict line following what survives. Answers and verdicts stay in your
+browser. A later run keeps your verdicts and shows what changed.
