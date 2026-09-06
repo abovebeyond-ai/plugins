@@ -17,10 +17,16 @@ pac profiler
 Profile the current repository (or the system the user points at) against the
 **PAC framework** from trustedagentic.ai: three pillars - **Potential,
 Accountability, Control** - and the six **Agent Profiler** axes. This skill is
-the framework as a procedure a machine can run. If online, refresh the
-reference with WebFetch on https://trustedagentic.ai/framework and note any
-drift from the copy below; if the fetch tool is not loaded or the site is
-unreachable, say which text you scored against and go on.
+the framework as a procedure a machine can run. The framework itself is data,
+`framework/pac.json` next to this file, a copy of what the site serves at
+https://trustedagentic.ai/framework/pac.json; the axes and questions below are
+rendered from it. If online, run `node <base directory>/scripts/framework.mjs
+--check` first and say what it reports; offline, say which version you scored
+against and go on.
+
+<!-- pac:version generated from framework/pac.json, do not edit -->
+Framework text: https://trustedagentic.ai/framework/pac.json, version 2026-09-06, language en.
+<!-- /pac:version -->
 
 ## What this is, and is not
 
@@ -130,20 +136,37 @@ question was whether that was an agent at all.
 
 ## Step 2 - the six axes (level 1 and up)
 
-1. **Autonomy** - A1 suggestion (text only, human does the work), A2 approve
-   (prepares, human approves before it lands), A3 oversight (acts, human watches
-   and can revert), A4 delegated (acts within bounds, oversight after the fact),
-   A5 autonomous (no human in the loop). Also: is the level *earned* (computed
-   from a track record) or *configured* (someone set a flag)? Earned beats
+The axes, their levels and their crosswalk come from the framework as data
+and are rendered here by `scripts/framework.mjs --render`; `--check` reports
+drift against the live file. Score with the ids: a cell says `A4`, never
+"delegated" alone, so two runs and two projects compare on the same scale.
+
+<!-- pac:axes generated from framework/pac.json, do not edit -->
+| axis | id | levels | pillar | crosswalk |
+|---|---|---|---|---|
+| Autonomy | `autonomy` | A1 Suggestion, A2 Approve, A3 Oversight, A4 Delegated, A5 Autonomous | P | Art. 14; A.9.2; MANAGE 2 |
+| Blast radius | `blast-radius` | B1 Contained, B2 Recoverable, B3 Exposed, B4 Regulated, B5 Irreversible | P | Art. 9, Annex III; A.5; MAP 5 |
+| Reliability | `reliability` | percentage with its error margin | P | Art. 15; A.6.2.4; MEASURE 2 |
+| Governance thresholds | `governance-thresholds` | the reliability bar per autonomy level, rising with blast radius | A | Art. 9; A.5.2; GOVERN 1.3 |
+| Infrastructure | `infrastructure` | I1 Open, I2 Logged, I3 Verified, I4 Authorized, I5 Contained | C | Art. 12, Art. 15; A.6.2.6, A.6.2.8; MANAGE 1 |
+| Business value | `business-value` | V1 Incremental, V2 Operational, V3 Strategic, V4 Transformative | P | A.6.1.2; MAP 1 |
+<!-- /pac:axes -->
+
+How to score each axis, with the evidence each level needs:
+
+1. **Autonomy** - A1 text only, the human does the work; A2 prepares, a human
+   approves before it lands; A3 acts, a human watches and can revert; A4 acts
+   within bounds, oversight after the fact; A5 no human in the loop. Also: is
+   the level *earned* (computed from a track record) or *configured* (someone
+   set a flag)? Earned beats
    configured; a flag nobody revokes is policy, not architecture.
    **Check that an A2 gate still exists** (level 2). A proposal written "for
    review in X" is A2 only while X is there and someone reads it. An approval
    path that points at a removed system, an unread queue or an inbox nobody owns
    is a label; score it as what it is and make it a claim.
-2. **Blast radius** - B1 contained (stays inside the system), B2 recoverable
-   (outside, one action to undo), B3 exposed (visible to third parties before you
-   notice), B4 regulated (touches rules, mail, DNS, personal data), B5
-   irreversible. Score in context: the same tool behind a PR is B2, self-merging
+2. **Blast radius** - B1 stays inside the system; B2 outside, one action to
+   undo; B3 visible to third parties before you notice; B4 touches rules, mail,
+   DNS, personal data; B5 cannot be undone. Score in context: the same tool behind a PR is B2, self-merging
    to production it is B4. For B5 ask why it is not redesigned to be reversible.
    Money spent is B2 at best: it cannot be undone, only capped.
 3. **Reliability** (level 3) - is there a measured success rate, and does anyone
@@ -156,29 +179,50 @@ question was whether that was an agent at all.
    Look for the coupling in code. One flat bar for a lockfile PR and a DNS change
    is a claim. A budget cap coupled to queue depth is a cost threshold, not a
    governance one.
-5. **Infrastructure** - I1 open ... I5 contained. Own OS user or shared?
+5. **Infrastructure** - I1 to I5 as in the table. Own OS user or shared?
    Credential scopes, production reachable directly or only via PR, limits
    enforced by architecture or by instructions the agent could ignore? A server
    that spawns its workers hands them its whole environment; say so.
-6. **Business value** - V1 incremental ... V4 transformative. From step 0; "not
+6. **Business value** - V1 to V4 as in the table. From step 0; "not
    declared" is an answer.
 
 ## Step 3 - the 19 questions, as the owner's questions
 
 Answer what the code can answer, one line each with evidence. The rest are the
-owner's, and they go to the top of the report as questions about *their*
-system, in their words - "Does anyone read the sources the scout proposes?" -
-not as the framework's abstract wording. Potential (7): undelegated decisions
-and their cost; will better models make this setup more valuable or obsolete;
-value lost to over-constraining; deciding vs automating predefined steps; does
-the right context reach agents in time; built on standards or an island; error
-margin known or headline number. Accountability (5): every agent known and
-registered; liability chain clear; can an unregistered agent even run;
-explainable to a regulator; consequential decisions traceable to who authorised.
-Control (7): contained by architecture or only policy; delegated authority can
-only decrease; what happens when human oversight breaks down; agent quality vs
-data privacy; allowed-list or block-list; crossing trust boundaries; what happens
-on an unanticipated use case.
+owner's, and they go to the report as questions about *their* system, in their
+words - "Does anyone read the sources the scout proposes?" - not as the
+framework's abstract wording. Every question you write carries the id of the
+framework question it descends from (`"framework": ["A1"]`), and every axis
+claim carries its axis id, so a claims file can be read against the framework
+and against the crosswalk in it: the compliance person at the table sees which
+article a row touches without anyone translating.
+
+<!-- pac:questions generated from framework/pac.json, do not edit -->
+**Potential** (What's worth building that lasts? The business owner answers.)
+- P1: What decisions are you not yet delegating to agents, and what's that costing you? (A.6.1.2; MAP 1)
+- P2: Will better models make your current setup more valuable, or obsolete? (A.6.2; MANAGE 2)
+- P3: How much value are you leaving on the table by over-constraining? (A.5; MAP 1)
+- P4: Are your agents actually making decisions, or just automating steps humans already defined? (Art. 3; A.6.1.2; MAP 1)
+- P5: Does the right context reach your agents at the right time? (Art. 10; A.7; MAP 2)
+- P6: Are you building on established and emerging standards, or on an island? (A.10; GOVERN 6)
+- P7: Do you know the error margin on your agent's reliability, or just the headline number? (Art. 13, Art. 15; A.6.2.4; MEASURE 2)
+
+**Accountability** (Who's accountable, and can you prove it? The person who carries the liability answers.)
+- A1: Do you know every agent running in your organisation? (Art. 26, Art. 49; A.4.2; GOVERN 1.6)
+- A2: If an agent causes harm, is the liability chain clear? (Art. 25, Art. 26; A.3.2; GOVERN 2)
+- A3: Can your infrastructure prevent an agent from running without being registered? (Art. 49; A.4.2; GOVERN 1.6)
+- A4: Could you explain to a regulator what your agent did and why? (Art. 12, Art. 13, Art. 86; A.6.2.8, A.8.2; GOVERN 4)
+- A5: When an agent makes a consequential decision, can you trace who authorised it and what happened? (Art. 12, Art. 14; A.6.2.8; MANAGE 2)
+
+**Control** (Can your infrastructure enforce what policy demands? The engineering side answers.)
+- C1: Are your agents contained by architecture, or only by policy? (Art. 9, Art. 15; A.6.2.6; MANAGE 1)
+- C2: When agents delegate to other agents, can authority only decrease? (Art. 25; A.10.2, A.10.3; GOVERN 6)
+- C3: What happens when human oversight breaks down in practice? (Art. 14, Art. 26; A.9.2, A.6.2.6; MANAGE 2)
+- C4: How do you balance agent quality with data privacy? (Art. 10, GDPR Art. 5, GDPR Art. 25; A.7; MEASURE 2)
+- C5: Are agents restricted to what they can do, or only blocked from what they can't? (Art. 15; A.6.2.6; MANAGE 1)
+- C6: Does your agent setup work when agents need to cross trust boundaries? (Art. 25; A.10; GOVERN 6)
+- C7: What happens when an agent wanders into a use case you didn't anticipate? (Art. 9, Art. 72; A.6.2.6; MANAGE 4)
+<!-- /pac:questions -->
 
 ## Step 4 - the report: one table in the terminal, one page for the room
 
@@ -255,7 +299,7 @@ scratchpad if the directory must stay clean): one object per claim.
 ```json
 { "id": "auto-deploy/autonomy", "entry": "auto-deploy", "axis": "autonomy",
   "level": 2, "statement": "Deploys on every merge with no approval and no test gate.",
-  "evidence": [{"file": "bin/auto-deploy", "line": 161}],
+  "evidence": [{"file": "bin/auto-deploy", "line": 161}], "framework": ["autonomy", "C3"],
   "status": "claimed", "verdict": null, "judged_at": null, "note": null }
 ```
 
