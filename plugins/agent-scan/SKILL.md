@@ -30,7 +30,7 @@ that cheaper. It does not do it for them, and it must never read as if it had.
 
 It reads code, so it can only ever be best effort. Its output is a set of
 **claims** for the owner to confirm or dispute, a set of **questions** only the
-owner can answer, and one line that says where things stand. The owner's
+owner can answer, and one line that says where things stand, and a page where they judge it. The owner's
 judgement is the deliverable; the profiler is the blank page filled in.
 
 If a repository shows no sign of a conscious process - nothing registered, no
@@ -117,9 +117,9 @@ because that is what blast radius scores.
 
 ## Step 2 - the six axes (level 1 and up)
 
-1. **Autonomy** - A1 suggestion (text only, human does the work) · A2 approve
-   (prepares, human approves before it lands) · A3 oversight (acts, human watches
-   and can revert) · A4 delegated (acts within bounds, oversight after the fact) ·
+1. **Autonomy** - A1 suggestion (text only, human does the work), A2 approve
+   (prepares, human approves before it lands), A3 oversight (acts, human watches
+   and can revert), A4 delegated (acts within bounds, oversight after the fact),
    A5 autonomous (no human in the loop). Also: is the level *earned* (computed
    from a track record) or *configured* (someone set a flag)? Earned beats
    configured; a flag nobody revokes is policy, not architecture.
@@ -127,9 +127,9 @@ because that is what blast radius scores.
    review in X" is A2 only while X is there and someone reads it. An approval
    path that points at a removed system, an unread queue or an inbox nobody owns
    is a label; score it as what it is and make it a claim.
-2. **Blast radius** - B1 contained (stays inside the system) · B2 recoverable
-   (outside, one action to undo) · B3 exposed (visible to third parties before you
-   notice) · B4 regulated (touches rules, mail, DNS, personal data) · B5
+2. **Blast radius** - B1 contained (stays inside the system), B2 recoverable
+   (outside, one action to undo), B3 exposed (visible to third parties before you
+   notice), B4 regulated (touches rules, mail, DNS, personal data), B5
    irreversible. Score in context: the same tool behind a PR is B2, self-merging
    to production it is B4. For B5 ask why it is not redesigned to be reversible.
    Money spent is B2 at best: it cannot be undone, only capped.
@@ -167,40 +167,62 @@ only decrease; what happens when human oversight breaks down; agent quality vs
 data privacy; allowed-list or block-list; crossing trust boundaries; what happens
 on an unanticipated use case.
 
-## Step 4 - the report, in six moments
+## Step 4 - the report: one table in the terminal, one page for the room
 
-Fill this skeleton in this order; do not invent a shape. Two runs weeks apart
-must compare line by line.
+The terminal is for the person who ran the profiler. They get a table, not
+prose: one row per entry, the same columns at every level, so two runs weeks
+apart compare line by line. Fill this skeleton in this order; do not invent a
+shape.
 
 ```
-<the mark, then:>  pac profiler · level N · <system> · <date>
+<the mark>
+pac profiler, level N, <system> at <sha>, <date>
 
 <1. one sentence in the owner's words: how many things act alone, how many reach outside>
 
-## Your questions
-<2. the questions only the owner can answer, as decisions about their system>
+| what acts alone | reach | label | evidence | level |
+|---|---|---|---|---|
+<2. one row per entry, ordered by reach: the furthest first. Reach is one of:
+    outside (customers, third parties, mail), machine (spends, changes the host),
+    inside (writes the system's own data), proposes (a person decides), reads.
+    Label is the plain-words tag, evidence one file:line, level the depth reached
+    for that row. At level 1 and up, add the six axes as columns after reach.>
 
-## The map
-| what it does (plain words) | label | evidence | level reached |
-<3. one row per entry, ordered by reach, plain words first>
+questions
+<3. numbered, one line each, prefixed with the pillar letter (P, A, C): the
+    decisions only the owner can make, in their words>
 
-## Where each stands
-<4. per entry: allowed, earned, and what would move it - written as distance, never as fault>
-
-## What stands well
-<5. the controls that are real, with evidence - a profile that lists only faults teaches nothing about what to keep>
-
-## Claims to check
-<6. the claims file's contents, numbered, each with its evidence: this is what the owner confirms or disputes>
+stands well
+<4. three or four lines: the controls that are real, each with evidence. A
+    profile that lists only faults teaches nothing about what to keep.>
 
 pac: <trusted|not yet> - <the single fact that decides it>
-abovebeyond · trustedagentic.ai/framework · pac profiler <version>
+review: <link to the page, when one was built>
+abovebeyond, trustedagentic.ai/framework, pac profiler <version>
 ```
+
+"Where each stands" is a column in the table (level), not a section; at
+level 0 it reads `unknown` for every row except the ones that carry a ledger
+by construction. Nothing else goes to the terminal: no paragraphs between the
+blocks, no repeat of the table as prose, no list of claims (the table is the
+list of claims, and the claims file carries them).
 
 The verdict line's shape is fixed: `pac: not yet - A5 configured, A0 earned`,
 `pac: trusted - B2 at 0.91 lower bound, bar is 0.85`. If a previous run was
 loaded, moment 1 opens with what changed since. Say which framework text you
-scored against.
+scored against, in one line under the signature.
+
+**The page is where the judging happens.** Build it from the claims file as an
+artifact, and put its link on the `review:` line. It follows the shape of
+trustedagentic.ai/framework, so a reader who knows the site knows the page:
+a short thesis; the map as cards grouped by reach (name, chips, one sentence,
+evidence), each with confirm and dispute as text that behaves; the owner's
+questions in three columns by pillar, P blue, A amber, C green, each with a
+place to answer; what stands well; and a night band at the end with the verdict
+line, a meter of what is judged, and a copy of the judged claims as json.
+Answers and verdicts stay in the reader's browser; nothing is sent anywhere.
+Paper ground, Lato and Spline Sans Mono, 6px corners, no middle-dot chains, no
+em dashes, no spaced capitals.
 
 ## The claims file
 
